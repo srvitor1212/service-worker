@@ -41,6 +41,18 @@
 
 
     <script src="~/js/registrar.js" asp-append-version="true"></script>
+    <script>
+        let refreshing;
+        // Esse evento será chamado quando o Service Worker for atualizado
+        // Aqui estamos recarregando a página
+        navigator.serviceWorker.addEventListener("controllerchange", function () {
+            if (refreshing) {
+                return;
+            }
+            window.location.reload();
+            refreshing = true;
+        });
+    </script>
 
 
 </html>
