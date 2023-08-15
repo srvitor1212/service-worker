@@ -7,7 +7,7 @@ const cacheName = "firstVersion";
 
 self.addEventListener("install", event => {
     event.waitUntil(
-        caches.open(cacheName).then(cache => cache.addAll(["./dog.jpg"]))
+        caches.open(cacheName).then(cache => cache.addAll(["/dog.jpg"]))
     );
 });
 
