@@ -6,7 +6,7 @@
 debugger;
 if ("serviceWorker" in navigator) {
     navigator.serviceWorker
-        .register("./service-worker.js")
+        .register("/js/service-worker.js")
         .then(function (registration) {
             // SUCESSO - ServiceWorker Registrado
             console.log("ServiceWorker registrado com sucesso no escopo: ", registration.scope);
