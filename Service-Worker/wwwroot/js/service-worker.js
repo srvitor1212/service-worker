@@ -2,25 +2,48 @@
 
 console.log(">>> Entrou no ServiceWorker!");
 
+debugger;
+let newWorker;
 
-const cacheName = "firstVersion";
-
-self.addEventListener("install", event => {
-    event.waitUntil(
-        caches.open(cacheName).then(cache => cache.addAll(["/dog.jpg"]))
-    );
+// O evento de clique na notificação
+document.getElementById("reload").addEventListener("click", function () {
+    newWorker.postMessage({ action: "skipWaiting" });
 });
 
-self.addEventListener("fetch", function(event) {
-    event.respondWith(
-        caches.match(event.request).then(function(response) {
-            if (response) {
-                return response;
-            }
-            return fetch(event.request);
+
+if ("serviceWorker" in navigator) {
+    navigator.serviceWorker
+        .register("./service-worker.js") // [A]
+        .then(function (registration) {
+            registration.addEventListener("updatefound", () => { // [B]
+                // Uma atualização no Service Worker foi encontrada, instalando...
+                newWorker = registration.installing; // [C]
+
+                newWorker.addEventListener("statechange", () => {
+                    // O estado do Service Worker mudou?
+                    switch (newWorker.state) {
+                        case "installed": {
+                            // Existe um novo Service Worker disponível, mostra a notificação
+                            if (navigator.serviceWorker.controller) {
+                                let notification = document.getElementById("notification");
+                                notification.className = "show";
+                                break;
+                            }
+                        }
+                    }
+                });
+            });
+
+            // SUCESSO - ServiceWorker Registrado
+            console.log(
+                "ServiceWorker registrado com sucesso no escopo: ", registration.scope
+            );
         })
-    );
-});
+        .catch(function (err) {
+            // ERRO - Falha ao registrar o ServiceWorker
+            console.log("Falha ao registrar o ServiceWorker: ", err);
+        });
+}
 
 
 console.log(">>> Fim do ServiceWorker!");
