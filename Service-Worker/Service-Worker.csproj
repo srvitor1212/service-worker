@@ -7,4 +7,9 @@
     <RootNamespace>Service_Worker</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\dog.jpg" />
+    <None Include="wwwroot\js\service-worker.js" />
+  </ItemGroup>
+
 </Project>
