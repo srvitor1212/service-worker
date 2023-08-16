@@ -1,7 +1,10 @@
 @page
 
+
 <!DOCTYPE html>
 <html>
+
+
     <head>
         <meta charset="UTF-8" />
         <title>PWA - Novo Service Worker disponível</title>
@@ -30,6 +33,7 @@
             </style>
     </head>
 
+
     <body>
         <img src="./dog.jpg" />
         <!-- A notificação que iremos mostrar -->
@@ -40,19 +44,8 @@
     </body>
 
 
-    <script src="~/js/registrar.js" asp-append-version="true"></script>
-    <script>
-        let refreshing;
-        // Esse evento será chamado quando o Service Worker for atualizado
-        // Aqui estamos recarregando a página
-        navigator.serviceWorker.addEventListener("controllerchange", function () {
-            if (refreshing) {
-                return;
-            }
-            window.location.reload();
-            refreshing = true;
-        });
-    </script>
+    <!-- Registra o service worker no navegador! -->
+    <script src="~/js/registrar.js"></script>
 
 
 </html>
